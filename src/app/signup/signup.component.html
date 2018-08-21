@@ -1,27 +1,38 @@
 <div class="login-page" [@routerTransition]>
     <div class="row justify-content-md-center">
         <div class="col-md-4">
-            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
-            <h1>SB Admin BS4 Angular5</h1>
-            <form role="form">
+            <img class="logo" src="assets/images/logo.png" />
+            <!--<h1>Pseudo Film</h1>-->
+            <form #form="ngForm" (ngSubmit)="onSubmit()">
                 <div class="form-content">
                     <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Full Name">
+                        <input type="text" class="form-control input-underline input-lg"
+                               [(ngModel)]="newuser.username" placeholder="Full Name" name="username" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Email">
+                        <input type="text" class="form-control input-underline input-lg"
+                               [(ngModel)]="newuser.email" pattern="[^@]+@[^@]+" placeholder="Email" name="email" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
+                        <input type="password" class="form-control input-underline input-lg"
+                               [(ngModel)]="newuser.password" placeholder="Password" name="password" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Repeat Password">
+                        <input type="password" class="form-control input-underline input-lg"
+                               [(ngModel)]="checkpasswd" placeholder="Repeat Password" name="checkpasswd" required>
+                    </div>
+                    <div *ngIf="error" class="text-center text-warning">
+                        <p>{{errormsg}}</p>
                     </div>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']"> Register </a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0"
+                            style="margin: 0 5px" [disabled]="form.invalid"> Register </button>
+                    <button type="button" class="btn btn-outline-success my-2 my-sm-0"
+                            style="margin: 0 5px"  [routerLink]="['/login']"> Log in </button>
+                </div>
             </form>
         </div>
     </div>

@@ -65,7 +65,7 @@ $topnav-background-color: #222;
     }
 
     .form-group {
-        padding: 8px 0;
+        padding: 2px 0;
         input::-webkit-input-placeholder {
             color: rgba(255, 255, 255, 0.6) !important;
         }
@@ -91,5 +91,8 @@ $topnav-background-color: #222;
         -webkit-border-radius: 50%;
         border-radius: 50%;
         border: 2px solid #fff;
+    }
+    .logo {
+        width: 250px;
     }
 }

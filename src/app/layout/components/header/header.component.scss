@@ -11,6 +11,15 @@ $topnav-background-color: #222;
                 color: #fff;
             }
         }
+        .profile-img {
+            width: 30px;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            //border: 2px solid #fff;
+        }
+        .logo {
+            width: 150px;
+        }
     }
     .messages {
         width: 300px;

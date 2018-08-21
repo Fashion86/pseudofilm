@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
+    username: string;
 
     constructor(private translate: TranslateService, public router: Router) {
 
@@ -28,7 +29,9 @@ export class HeaderComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.username = localStorage.getItem('user');
+    }
 
     isToggled(): boolean {
         const dom: Element = document.querySelector('body');
@@ -46,7 +49,8 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+      localStorage.removeItem('isLoggedin');
+      localStorage.removeItem('user');
     }
 
     changeLang(language: string) {
