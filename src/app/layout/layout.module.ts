@@ -3,7 +3,13 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DialogModule} from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {GrowlModule} from 'primeng/growl';
+
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -23,9 +29,13 @@ import { LocationFormComponent } from './location/location-form/location-form.co
         TranslateModule,
         PageHeaderModule,
         NgbDropdownModule.forRoot(),
+        Ng4LoadingSpinnerModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
         DialogModule,
+        RadioButtonModule,
+        ConfirmDialogModule,
+        GrowlModule
     ],
     declarations: [
       LayoutComponent,
@@ -36,6 +46,10 @@ import { LocationFormComponent } from './location/location-form/location-form.co
       PersonComponent,
       PersonFormComponent,
       LocationComponent,
-      LocationFormComponent]
+      LocationFormComponent
+    ],
+  providers: [
+    ConfirmationService
+    ]
 })
 export class LayoutModule {}

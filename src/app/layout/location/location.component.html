@@ -1,3 +1,72 @@
-<p>
-  location works!
-</p>
+<div [@routerTransition] xmlns="http://www.w3.org/1999/html">
+  <app-page-header [heading]="'Locations'" [icon]="'fa-table'"></app-page-header>
+
+  <p-growl [life]="5000" [sticky]="false" [(value)]="messages"></p-growl>
+  <p-confirmDialog
+          header="Delete Location"
+          icon="fa fa-trash"
+          acceptLabel="Yes">
+  </p-confirmDialog>
+
+  <div class="row">
+    <!--<ng4-loading-spinner [loadingText]="'Please wait...'"> </ng4-loading-spinner>-->
+    <div class="col col-xl-12 col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <button type="button" class="btn btn-success btn-sm"
+                  (click)="startCreatePerson()">
+            <i class="fa fa-plus fa-fw"></i>New Location </button>
+        </div>
+        <table class="table table-sm">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>ApprovalNeeded</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let location of locations">
+            <td>{{location.locationId}}</td>
+            <td>{{location.name}}</td>
+            <td>{{location.address}}</td>
+            <td>
+              <span *ngIf="location.isApprovalNeeded == true" class="badge badge-success">Yes</span>
+              <span *ngIf="location.isApprovalNeeded == false" class="badge badge-danger">No</span>
+            </td>
+            <td>
+              <a (click)="startEdit(location)">
+                <i class="fa fa-pencil"></i>
+              </a>
+            </td>
+            <td>
+              <a (click)="onDeleteItem(location)">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+        [(visible)]="showFormDialog" [responsive]="true" [modal]="true"
+        [draggable]="false" [breakpoint]="500" [width]="500"
+        [blockScroll]="true" >
+  <p-header *ngIf="status_flag=='Create'">
+    Add New Location
+  </p-header>
+  <p-header *ngIf="status_flag=='Update'">
+    Update Location
+  </p-header>
+  <app-location-form [edittata]="edittata"
+                   (cancel)="onCancelEdit()" (update)="onUpdate($event)" #editForm>
+
+  </app-location-form>
+</p-dialog>

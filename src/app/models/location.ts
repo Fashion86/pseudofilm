@@ -1,6 +1,6 @@
 import {Photo} from './photo';
 export class Location {
-  id: number;
+  locationId: number;
   name: string;
   address: string;
   isApprovalNeeded: boolean;

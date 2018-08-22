@@ -29,6 +29,27 @@ export class RequestService {
         map((response: Response) => response)
       );
   }
+
+  addLocation(data) {
+    return this._http.post(this.baseUrl + '/production/location', data, {headers: this.headers})
+      .pipe(
+        map((response: Response) => response)
+      );
+  }
+
+  updateLocation(data, id) {
+    return this._http.put(this.baseUrl + '/production/location/' + id, data, {headers: this.headers})
+      .pipe(
+        map((response: Response) => response)
+      );
+  }
+
+  getAllLocation() {
+    return this._http.get(this.baseUrl + '/production/location',  {headers: this.headers})
+      .pipe(
+        map((response: Response) => response)
+      );
+  }
   searchData(strparam) {
     return this._http.get(this.baseUrl + '/search', {headers: this.headers})
       .pipe(
