@@ -9,7 +9,7 @@ export class Person {
   name: string;
   address: string;
   contactNumber: string;
-  isRequired = true;
+  isRequired: boolean;
   character: Character;
   personPhoto: Photo;
   roles: Role[] = [];

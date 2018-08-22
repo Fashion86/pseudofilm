@@ -3,6 +3,6 @@ export class Location {
   id: number;
   name: string;
   address: string;
-  isApprovalNeeded = true;
+  isApprovalNeeded: boolean;
   locationPhotos: Photo[] = [];
 }

@@ -1,0 +1,95 @@
+<div [@routerTransition] xmlns="http://www.w3.org/1999/html">
+  <app-page-header [heading]="'Persons'" [icon]="'fa-table'"></app-page-header>
+  <div class="row">
+    <div class="col col-xl-12 col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <button type="button" class="btn btn-success btn-sm"
+                  (click)="startCreatePerson()">
+            <i class="fa fa-plus fa-fw"></i>New Person </button>
+        </div>
+        <table class="table table-sm">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Required</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let person of persons">
+            <td>{{person.name}}</td>
+            <td>{{person.email}}</td>
+            <td>
+              <span *ngIf="person.isRequired == true" class="badge badge-success">Yes</span>
+              <span *ngIf="person.isRequired == false" class="badge badge-danger">No</span>
+            </td>
+            <td><button type="button" class="btn btn-outline-success my-2 my-sm-0 btn-sm"
+                        style="margin: 0 5px"  [disabled]="false"> View More </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Person</h5>
+          <button type="button" class="close" aria-label="Close" (click)="d('close')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form class="form-horizontal" #form="ngForm">
+            <div class="form-content">
+              <div class="form-group">
+                <label class="control-label col-sm-2">Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [(ngModel)]="editperson.name" placeholder="Name" name="name" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3">Email</label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control"
+                         [(ngModel)]="editperson.email" pattern="[^@]+@[^@]+" placeholder="Email" name="email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3">Address</label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control"
+                         [(ngModel)]="editperson.address" placeholder="Address" name="address" required>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-outline-success my-2 my-sm-0" (click)="c(persons)"
+                      style="margin: 0 5px"  [disabled]="false"> Log in </button>
+              <button type="button" class="btn btn-outline-success my-2 my-sm-0" (click)="c('close')"
+                      style="margin: 0 5px" [routerLink]="['/signup']"> Register </button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+
+
+    </div>
+  </div>
+</div>
+
+<p-dialog
+        [(visible)]="showFormDialog" [responsive]="true" [modal]="true"
+        [draggable]="false" [breakpoint]="500" [width]="500"
+        [blockScroll]="true" >
+  <p-header>
+    Add New Person
+  </p-header>
+  <app-person-form [edittata]="edittata"
+                      (cancel)="onCancelEdit()" (update)="onUpdate($event)" #editForm>
+
+  </app-person-form>
+</p-dialog>
