@@ -6,13 +6,15 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ConfirmationService } from 'primeng/api';
 import {Message} from 'primeng/api';
 import * as _ from 'lodash';
+import {forEach} from '@angular/router/src/utils/collection';
+import { ImageprocessService } from '../../shared/services/imageprocess.service';
 
 @Component({
   selector: 'app-location',
   templateUrl: './location.component.html',
   styleUrls: ['./location.component.scss'],
   animations: [routerTransition()],
-  providers: [RequestService]
+  providers: [RequestService, ImageprocessService]
 })
 export class LocationComponent implements OnInit {
 
@@ -23,6 +25,7 @@ export class LocationComponent implements OnInit {
   messages: Message[] = [];
   edittata = new EventEmitter<any>();
   constructor(private  api: RequestService,
+              private  imgservice: ImageprocessService,
               private spinnerService: Ng4LoadingSpinnerService,
               private confirmationService: ConfirmationService) { }
 
@@ -36,8 +39,19 @@ export class LocationComponent implements OnInit {
   getAllData() {
     this.api.getAllLocation().subscribe(res => {
       this.locations = res['data'];
-      this.spinnerService.hide();
+      this.locations.forEach( location => {
+        this.getImgurl(location);
+        this.spinnerService.hide();
+      });
+    }, err => {
+      console.log('err', err);
     });
+  }
+
+  getImgurl(location: Location) {
+    if (location.locationPhotos.length > 0) {
+      location.imageurl = this.imgservice.strTobase64(location.locationPhotos[location.locationPhotos.length - 1]);
+    }
   }
 
   startCreatePerson() {
@@ -71,6 +85,7 @@ export class LocationComponent implements OnInit {
     this.messages = [];
     if (!location.locationId) {
       this.api.addLocation(location).subscribe(res => {
+        this.getImgurl(res['data']);
         this.locations.push(res['data']);
         this.messages.push({severity: 'success', summary: 'Success Message', detail: 'Create Success'});
       }, err => {

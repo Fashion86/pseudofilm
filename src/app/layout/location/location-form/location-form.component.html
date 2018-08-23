@@ -1,22 +1,30 @@
 <form class="form-horizontal" #form="ngForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
+  <div class="form-group formlabel">
     <label class="control-label col-sm-3">Name</label>
     <div class="col-sm-9 right-div">
       <input type="text" class="form-control" [(ngModel)]="editlocation.name" placeholder="Name" name="name" required>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group formlabel">
     <label class="control-label col-sm-3">Address</label>
     <div class="col-sm-9 right-div">
-      <input type="text" class="form-control"
+      <textarea rows="3" cols="10" class="form-control"
              [(ngModel)]="editlocation.address" placeholder="Address" name="address" required>
+      </textarea>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group formlabel">
     <label class="control-label col-sm-3">ApprovalNeeded</label>
     <div class="col-sm-9 right-div">
-      <p-radioButton name="groupname" [style]="{'margin':'0 5px'}" label="Yes" value=true [(ngModel)]="editlocation.isApprovalNeeded"></p-radioButton>
-      <p-radioButton name="groupname" [style]="{'margin':'0 5px'}" label="No" value=false [(ngModel)]="editlocation.isApprovalNeeded"></p-radioButton>
+      <p-radioButton name="groupname" [style]="{'margin':'0 5px'}" label="Yes" [value]=true [(ngModel)]="editlocation.isApprovalNeeded"></p-radioButton>
+      <p-radioButton name="groupname" [style]="{'margin':'0 5px'}" label="No" [value]=false [(ngModel)]="editlocation.isApprovalNeeded"></p-radioButton>
+    </div>
+  </div>
+  <div class="form-group formlabel">
+    <label class="control-label col-sm-3">Photo</label>
+    <div class="col-sm-9 right-div">
+      <img class="profile-icon" [src]="editlocation.imageurl ? editlocation.imageurl:'assets/images/photo-back.png'" [alt]="'Photo'" style="width: 50%"/>
+      <input type="file" id="DocInput" accept="image/*" capture="camera" (change)="selectPhoto($event)" #photoInput>
     </div>
   </div>
 

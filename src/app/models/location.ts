@@ -5,4 +5,5 @@ export class Location {
   address: string;
   isApprovalNeeded: boolean;
   locationPhotos: Photo[] = [];
+  imageurl: string;
 }

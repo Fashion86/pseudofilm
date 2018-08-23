@@ -8,6 +8,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {GrowlModule} from 'primeng/growl';
+import {CardModule} from 'primeng/card';
 
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
@@ -35,7 +36,8 @@ import { LocationFormComponent } from './location/location-form/location-form.co
         DialogModule,
         RadioButtonModule,
         ConfirmDialogModule,
-        GrowlModule
+        GrowlModule,
+        CardModule
     ],
     declarations: [
       LayoutComponent,

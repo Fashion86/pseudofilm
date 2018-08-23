@@ -9,47 +9,84 @@
   </p-confirmDialog>
 
   <div class="row">
-    <!--<ng4-loading-spinner [loadingText]="'Please wait...'"> </ng4-loading-spinner>-->
+
     <div class="col col-xl-12 col-lg-12">
-      <div class="card mb-3">
+      <div class="card mb-3" style="background-color: #e9ecef">
         <div class="card-header">
           <button type="button" class="btn btn-success btn-sm"
                   (click)="startCreatePerson()">
             <i class="fa fa-plus fa-fw"></i>New Location </button>
         </div>
-        <table class="table table-sm">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>ApprovalNeeded</th>
-            <th></th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let location of locations">
-            <td>{{location.locationId}}</td>
-            <td>{{location.name}}</td>
-            <td>{{location.address}}</td>
-            <td>
-              <span *ngIf="location.isApprovalNeeded == true" class="badge badge-success">Yes</span>
-              <span *ngIf="location.isApprovalNeeded == false" class="badge badge-danger">No</span>
-            </td>
-            <td>
-              <a (click)="startEdit(location)">
-                <i class="fa fa-pencil"></i>
-              </a>
-            </td>
-            <td>
-              <a (click)="onDeleteItem(location)">
-                <i class="fa fa-trash-o"></i>
-              </a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <div class="row">
+          <ng4-loading-spinner [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+          <div class="col-sm-4" *ngFor="let location of locations">
+              <p-card title={{location.name}} [style]="{margin: '5px 5px'}" styleClass="ui-card-shadow">
+                <p-header>
+                  <img src="Card" style="padding: 10px;" [src]="location.imageurl ? location.imageurl:'assets/images/photo-back.png'">
+                </p-header>
+                <div>
+                    <div class="form-group formlabel">
+                      <label class="control-label col-sm-4">Name:</label>
+                      <label class="control-label col-sm-8"><strong>{{location.name}}</strong></label>
+                    </div>
+                    <div class="form-group formlabel">
+                      <label class="control-label col-sm-4">Address</label>
+                      <label class="control-label col-sm-8"><strong>{{location.address}}</strong></label>
+                    </div>
+                    <div class="form-group formlabel">
+                      <label class="control-label col-sm-4">ApprovalNeeded</label>
+                      <label class="control-label col-sm-8">
+                        <strong *ngIf="location.isApprovalNeeded">Yes
+                        </strong>
+                        <strong *ngIf="!location.isApprovalNeeded">No
+                        </strong>
+                      </label>
+                    </div>
+                </div>
+                <p-footer>
+                  <div class="control-btn">
+                    <button pButton type="button" (click)="startEdit(location)" label="Modify" icon="pi pi-check" class="ui-button-success" style="margin-right: .25em"></button>
+                    <button pButton type="button" (click)="onDeleteItem(location)" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
+                  </div>
+                </p-footer>
+              </p-card>
+          </div>
+        </div>
+
+        <!--<table class="table table-sm">-->
+          <!--<thead>-->
+          <!--<tr>-->
+            <!--<th>ID</th>-->
+            <!--<th>Name</th>-->
+            <!--<th>Address</th>-->
+            <!--<th>ApprovalNeeded</th>-->
+            <!--<th></th>-->
+            <!--<th></th>-->
+          <!--</tr>-->
+          <!--</thead>-->
+          <!--<tbody>-->
+          <!--<tr *ngFor="let location of locations">-->
+            <!--<td>{{location.locationId}}</td>-->
+            <!--<td>{{location.name}}</td>-->
+            <!--<td>{{location.address}}</td>-->
+            <!--<td>-->
+              <!--<span *ngIf="location.isApprovalNeeded == true" class="badge badge-success">Yes</span>-->
+              <!--<span *ngIf="location.isApprovalNeeded == false" class="badge badge-danger">No</span>-->
+            <!--</td>-->
+            <!--<td>-->
+              <!--<a (click)="startEdit(location)">-->
+                <!--<i class="fa fa-pencil"></i>-->
+              <!--</a>-->
+            <!--</td>-->
+            <!--<td>-->
+              <!--<a (click)="onDeleteItem(location)">-->
+                <!--<i class="fa fa-trash-o"></i>-->
+              <!--</a>-->
+            <!--</td>-->
+          <!--</tr>-->
+          <!--</tbody>-->
+        <!--</table>-->
+
       </div>
     </div>
   </div>
