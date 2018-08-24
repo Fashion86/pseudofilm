@@ -22,10 +22,10 @@
 
   <div class="form-group">
     <div class="control-btn">
-      <button *ngIf="editperson.id!=null;" type="submit" class="btn btn-success btn-sm btn-right"
+      <button *ngIf="editperson.personId!=null;" type="submit" class="btn btn-success btn-sm btn-right"
               style="margin: 0 5px" [disabled]="form.form.invalid">Update
       </button>
-      <button *ngIf="editperson.id==null;" type="submit" class="btn btn-success btn-sm btn-right"
+      <button *ngIf="editperson.personId==null;" type="submit" class="btn btn-success btn-sm btn-right"
               style="margin: 0 5px" [disabled]="form.form.invalid">Create
       </button>
       <button type="button" class="btn btn-default btn-sm btn-right" style="margin: 0 5px" (click)="onCancel()">Cancel</button>
