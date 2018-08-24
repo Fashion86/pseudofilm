@@ -7,7 +7,12 @@
           icon="fa fa-trash"
           acceptLabel="Yes">
   </p-confirmDialog>
-
+  <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"
+               size = "large"
+               color = "#fff"
+               type = "timer">
+    <!--<p style="font-size: 20px; color: white">Loading...</p>-->
+  </ngx-spinner>
   <div class="row">
 
     <div class="col col-xl-12 col-lg-12">
@@ -18,12 +23,13 @@
             <i class="fa fa-plus fa-fw"></i>New Location </button>
         </div>
         <div class="row">
-          <!--<ng4-loading-spinner [loadingText]="'Please wait...'"> </ng4-loading-spinner>-->
+
           <div class="col-sm-4" *ngFor="let location of locations">
               <p-card [style]="{margin: '5px 5px'}" styleClass="ui-card-shadow">
                 <p-header>
                   <img *ngIf="location.images.length < 1" src="Card" style="padding: 10px; width: 100%; height: 297px" [src]="'assets/images/photo-back.png'">
-                  <p-galleria *ngIf="location.images.length > 0" [images]="location.images" panelWidth="100%" panelHeight = "250"[showCaption]="false"></p-galleria>
+                  <p-galleria *ngIf="location.images.length > 0" [images]="location.images" panelWidth="100%" panelHeight = "250"
+                              [autoPlay]="true" [showCaption]="false"></p-galleria>
                 </p-header>
                 <div>
                     <div class="form-group formlabel">

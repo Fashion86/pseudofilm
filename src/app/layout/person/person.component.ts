@@ -2,12 +2,12 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { Person } from '../../models/person';
 import { RequestService } from '../../shared/services/request.service';
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ConfirmationService } from 'primeng/api';
 import {Message} from 'primeng/api';
 import * as _ from 'lodash';
 import {forEach} from '@angular/router/src/utils/collection';
 import { ImageprocessService } from '../../shared/services/imageprocess.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-person',
@@ -17,28 +17,6 @@ import { ImageprocessService } from '../../shared/services/imageprocess.service'
   providers: [RequestService, ImageprocessService]
 })
 export class PersonComponent implements OnInit {
-
-  roles = [
-    {id: 1, name: 'Director'},
-    {id: 2, name: 'Assistant Director'},
-    {id: 3, name: 'Cinematographer'},
-    {id: 4, name: 'Camera Specialist'},
-    {id: 5, name: 'Assistant Cameraman'},
-    {id: 6, name: 'Focus Puller'},
-    {id: 7, name: 'Data Wrangler'},
-    {id: 8, name: 'Director of Art'},
-    {id: 9, name: 'Director-1'},
-    {id: 10, name: 'Public Relation Officer'},
-    {id: 11, name: 'Drone Specialist'},
-    {id: 12, name: 'Safety Specialist'},
-    {id: 13, name: 'Logistics Specialist'},
-    {id: 14, name: 'Clapper'},
-    {id: 15, name: 'Technical Assistant'},
-    {id: 16, name: 'Crew Assistant'},
-    {id: 17, name: 'Actor-Actress'},
-    {id: 18, name: 'Food Sponsor'}
-  ];
-
   persons: Person[] = [];
   editperson: Person;
   showFormDialog: boolean;
@@ -46,12 +24,12 @@ export class PersonComponent implements OnInit {
   messages: Message[] = [];
   edittata = new EventEmitter<any>();
   constructor(private  api: RequestService,
+              private  spinner: NgxSpinnerService,
               private  imgservice: ImageprocessService,
-              private spinnerService: Ng4LoadingSpinnerService,
               private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    this.spinnerService.show();
+    this.spinner.show();
     this.getAllData();
     this.showFormDialog = false;
     this.editperson = new Person();
@@ -62,8 +40,8 @@ export class PersonComponent implements OnInit {
       this.persons = res['data'];
       this.persons.forEach( person => {
         this.getImgurl(person);
-        this.spinnerService.hide();
       });
+      this.spinner.hide();
     }, err => {
       console.log('err', err);
     });
@@ -90,7 +68,9 @@ export class PersonComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
+        this.spinner.show();
         this.api.deletePerson(person.personId).subscribe(res => {
+          this.spinner.hide();
           this.persons = _.filter(this.persons, a => a.personId !== person.personId);
           this.messages.push({severity: 'success', summary: 'Success Message', detail: 'Delete Success'});
         }, err => {
@@ -105,8 +85,10 @@ export class PersonComponent implements OnInit {
   onUpdate(person: Person) {
     this.showFormDialog = false;
     this.messages = [];
+    this.spinner.show();
     if (!person.personId) {
       this.api.addPerson(person).subscribe(res => {
+        this.spinner.hide();
         this.getAllData();
         this.persons.push(res['data']);
         this.messages.push({severity: 'success', summary: 'Success Message', detail: 'Create Success'});
@@ -117,6 +99,7 @@ export class PersonComponent implements OnInit {
       const edited = _.find(this.persons, p => p.personId === person.personId);
       Object.assign(edited, person);
       this.api.updatePerson(person, person.personId).subscribe(res => {
+        this.spinner.hide();
         this.getAllData();
         this.messages.push({severity: 'success', summary: 'Success Message', detail: 'Update Success'});
       }, err => {

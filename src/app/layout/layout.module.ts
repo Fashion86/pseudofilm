@@ -12,9 +12,9 @@ import {CardModule} from 'primeng/card';
 import {GalleriaModule} from 'primeng/galleria';
 import {MultiSelectModule} from 'primeng/multiselect';
 
-import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -34,8 +34,8 @@ import { LocationFormComponent } from './location/location-form/location-form.co
         TranslateModule,
         PageHeaderModule,
         NgbDropdownModule.forRoot(),
-        Ng4LoadingSpinnerModule.forRoot(),
         NgMultiSelectDropDownModule.forRoot(),
+        NgxSpinnerModule,
         FormsModule,
         ReactiveFormsModule,
         DialogModule,

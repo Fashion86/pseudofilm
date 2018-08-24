@@ -7,7 +7,12 @@
           icon="fa fa-trash"
           acceptLabel="Yes">
   </p-confirmDialog>
-
+  <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)"
+               size = "large"
+               color = "#fff"
+               type = "timer">
+    <!--<p style="font-size: 20px; color: white">Loading...</p>-->
+  </ngx-spinner>
   <div class="row">
 
     <div class="col col-xl-12 col-lg-12">
@@ -18,7 +23,6 @@
             <i class="fa fa-plus fa-fw"></i>New Person </button>
         </div>
         <div class="row">
-          <!--<ng4-loading-spinner [loadingText]="'Please wait...'"> </ng4-loading-spinner>-->
           <div class="col-sm-4" *ngFor="let person of persons">
             <p-card [style]="{margin: '5px 5px'}" styleClass="ui-card-shadow">
               <p-header>
