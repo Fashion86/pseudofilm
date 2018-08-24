@@ -10,7 +10,7 @@ export class RequestService {
   constructor(private _http: HttpClient) { }
 
   addUser(data) {
-    return this._http.post(this.baseUrl + '/adduser', data, {headers: this.headers})
+    return this._http.post(this.baseUrl + '/appuser/register', data, {headers: this.headers})
       .pipe(
         map((response: Response) => response)
       );

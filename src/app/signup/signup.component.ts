@@ -26,16 +26,16 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     if (this.newuser.password !== this.checkpasswd) {
         this.error = true;
+        this.errormsg = 'Password incorrect!';
     } else {
         this.error = false;
         this.api.addUser(this.newuser).subscribe(data => {
-        if (data['success']) {
           this.router.navigate(['/login']);
-        } else {
+          this.error = false;
+      }, err => {
           this.error = true;
-          this.errormsg = data['err'];
-        }
-      });
+          this.errormsg = 'Register Failed!';
+        });
     }
   }
 }

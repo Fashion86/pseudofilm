@@ -12,7 +12,7 @@ import { RequestService } from '../shared/services/request.service';
 })
 export class LoginComponent implements OnInit {
   loginFail: boolean;
-  email = '';
+  userName = '';
   password = '';
   constructor(private  api: RequestService,
               private router: Router) {}
