@@ -49,12 +49,14 @@ export class LocationComponent implements OnInit {
   }
 
   getImgurl(location: Location) {
-    if (location.locationPhotos.length > 0) {
-      location.imageurl = this.imgservice.strTobase64(location.locationPhotos[location.locationPhotos.length - 1]);
-    }
+    location.images = [];
+    location.locationPhotos.forEach( photo => {
+      location.images.push({source: this.imgservice.strTobase64(photo),
+        alt: '', title: location.name});
+    });
   }
 
-  startCreatePerson() {
+  startCreate() {
     this.editlocation = new Location();
     this.status_flag = 'Create';
     this.showFormDialog = true;
@@ -72,7 +74,12 @@ export class LocationComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
-        // Actual logic to perform a confirmation
+        this.api.deleteLocation(location.locationId).subscribe(res => {
+          this.locations = _.filter(this.locations, a => a.locationId !== location.locationId);
+          this.messages.push({severity: 'success', summary: 'Success Message', detail: 'Delete Success'});
+        }, err => {
+          this.messages.push({severity: 'error', summary: 'Error Message', detail: 'Delete failed'});
+        });
       }
     });
   }
@@ -95,6 +102,7 @@ export class LocationComponent implements OnInit {
       const edited = _.find(this.locations, p => p.locationId === location.locationId);
       Object.assign(edited, location);
       this.api.updateLocation(location, location.locationId).subscribe(res => {
+        this.getAllData();
         this.messages.push({severity: 'success', summary: 'Success Message', detail: 'Update Success'});
       }, err => {
         this.messages.push({severity: 'error', summary: 'Error Message', detail: 'Update failed'});

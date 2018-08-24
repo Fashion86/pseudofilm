@@ -28,3 +28,21 @@
 .formlabel {
     display: flex;
 }
+/*multi dropdown select style*/
+.multiselect-dropdown {
+    //min-width: 400px !important;
+}
+.multiselect-dropdown .dropdown-btn {
+    color: #888888 !important;
+    border: 1px solid #d6d6d6 !important;
+    padding-left: 12px !important;
+    padding-top: 4px !important;
+    padding-right: 4px !important;
+    border-radius: 3px !important;
+    //min-width: 440px !important;
+}
+.multiselect-dropdown .dropdown-btn .dropdown-down {
+    border-top: 6px solid #555555 !important;
+    border-left: 3px solid transparent !important;
+    border-right: 3px solid transparent !important;
+}

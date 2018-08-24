@@ -1,31 +1,76 @@
 <form class="form-horizontal" #form="ngForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
+  <div class="form-group formlabel">
     <label class="control-label col-sm-3">Name</label>
     <div class="col-sm-9 right-div">
       <input type="text" class="form-control" [(ngModel)]="editperson.name" placeholder="Name" name="name" required>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group formlabel">
     <label class="control-label col-sm-3">Email</label>
     <div class="col-sm-9 right-div">
       <input type="text" class="form-control"
              [(ngModel)]="editperson.email" pattern="[^@]+@[^@]+" placeholder="Email" name="email" required>
     </div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-sm-3">Address</label>
+  <div class="form-group formlabel">
+    <label class="control-label col-sm-3">ContactNumber</label>
     <div class="col-sm-9 right-div">
       <input type="text" class="form-control"
-             [(ngModel)]="editperson.address" placeholder="Address" name="address" required>
+             [(ngModel)]="editperson.contactNumber" placeholder="ContactNumber" name="contactNumber" required>
+    </div>
+  </div>
+  <div class="form-group formlabel">
+    <label class="control-label col-sm-3">Address</label>
+    <div class="col-sm-9 right-div">
+      <textarea rows="3" cols="10" class="form-control"
+                [(ngModel)]="editperson.address" placeholder="Address" name="address" required>
+      </textarea>
+    </div>
+  </div>
+  <div class="form-group formlabel">
+    <label class="control-label col-sm-3">Roles</label>
+    <div class="col-sm-9 right-div">
+      <ng-multiselect-dropdown [placeholder]="'Select Roles'"
+              [data]="roles"
+              [(ngModel)]="editperson.roles"
+              [settings]="dropdownSettings"
+              [style]="{'width':'100%'}"
+              [ngModelOptions]="{standalone: true}"
+      >
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <div class="form-group formlabel">
+    <label class="control-label col-sm-3">Required</label>
+    <div class="col-sm-9 right-div">
+      <p-radioButton name="groupname" [style]="{'margin':'0 5px'}" label="Yes" [value]=true [(ngModel)]="editperson.isRequired"></p-radioButton>
+      <p-radioButton name="groupname" [style]="{'margin':'0 5px'}" label="No" [value]=false [(ngModel)]="editperson.isRequired"></p-radioButton>
+    </div>
+  </div>
+  <div class="form-group formlabel">
+    <label class="control-label col-sm-3">Photo</label>
+    <div class="col-sm-9 right-div">
+      <!--<img class="profile-icon" [src]="editperson.imageurl ? editperson.imageurl:'assets/images/photo-back.png'" [alt]="'Photo'" style="width: 50%"/>-->
+      <!--<input type="file" id="DocInput" accept="image/*" capture="camera" (change)="selectPhoto($event)" #photoInput>-->
+      <input type="file" accept="image/*" (change)="fileChangeEvent($event)" />
+      <image-cropper style="width: 70%;"
+                     [imageChangedEvent]="imageChangedEvent"
+                     [maintainAspectRatio]="true"
+                     [aspectRatio]="4 / 3"
+                     format="png"
+                     (imageCroppedBase64)="imageCropped($event)"
+                     (imageLoaded)="imageLoaded()"
+                     (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
     </div>
   </div>
 
   <div class="form-group">
     <div class="control-btn">
-      <button *ngIf="editperson.id!=null;" type="submit" class="btn btn-success btn-sm btn-right"
+      <button *ngIf="editperson.personId!=null;" type="submit" class="btn btn-success btn-sm btn-right"
               style="margin: 0 5px" [disabled]="form.form.invalid">Update
       </button>
-      <button *ngIf="editperson.id==null;" type="submit" class="btn btn-success btn-sm btn-right"
+      <button *ngIf="editperson.personId==null;" type="submit" class="btn btn-success btn-sm btn-right"
               style="margin: 0 5px" [disabled]="form.form.invalid">Create
       </button>
       <button type="button" class="btn btn-default btn-sm btn-right" style="margin: 0 5px" (click)="onCancel()">Cancel</button>

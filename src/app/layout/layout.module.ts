@@ -9,8 +9,12 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {GrowlModule} from 'primeng/growl';
 import {CardModule} from 'primeng/card';
+import {GalleriaModule} from 'primeng/galleria';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -31,13 +35,17 @@ import { LocationFormComponent } from './location/location-form/location-form.co
         PageHeaderModule,
         NgbDropdownModule.forRoot(),
         Ng4LoadingSpinnerModule.forRoot(),
+        NgMultiSelectDropDownModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
         DialogModule,
         RadioButtonModule,
         ConfirmDialogModule,
         GrowlModule,
-        CardModule
+        CardModule,
+        GalleriaModule,
+        ImageCropperModule,
+        MultiSelectModule
     ],
     declarations: [
       LayoutComponent,

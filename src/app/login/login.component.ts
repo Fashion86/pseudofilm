@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     //   if (data['success']) {
         localStorage.setItem('isLoggedin', 'true');
         // localStorage.setItem('user', data['user'].username);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/person']);
     //   } else {
     //     this.loginFail = true;
     //   }

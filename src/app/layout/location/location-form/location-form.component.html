@@ -23,8 +23,20 @@
   <div class="form-group formlabel">
     <label class="control-label col-sm-3">Photo</label>
     <div class="col-sm-9 right-div">
-      <img class="profile-icon" [src]="editlocation.imageurl ? editlocation.imageurl:'assets/images/photo-back.png'" [alt]="'Photo'" style="width: 50%"/>
-      <input type="file" id="DocInput" accept="image/*" capture="camera" (change)="selectPhoto($event)" #photoInput>
+      <!--<img class="profile-icon" [src]="editlocation.imageurl ? editlocation.imageurl:'assets/images/photo-back.png'" [alt]="'Photo'" style="width: 50%"/>-->
+      <!--<input type="file" id="DocInput" accept="image/*" capture="camera" (change)="selectPhoto($event)" #photoInput>-->
+      <input type="file" accept="image/*" (change)="fileChangeEvent($event)" />
+      <image-cropper style="width: 50%;"
+              [imageChangedEvent]="imageChangedEvent"
+              [maintainAspectRatio]="true"
+              [aspectRatio]="4 / 3"
+              format="png"
+              (imageCroppedBase64)="imageCropped($event)"
+              (imageLoaded)="imageLoaded()"
+              (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+
+      <!--<img [src]="croppedImage" />-->
     </div>
   </div>
 

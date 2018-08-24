@@ -1,7 +1,7 @@
 <div [@routerTransition] xmlns="http://www.w3.org/1999/html">
   <app-page-header [heading]="'Locations'" [icon]="'fa-table'"></app-page-header>
 
-  <p-growl [life]="5000" [sticky]="false" [(value)]="messages"></p-growl>
+  <p-growl [life]="3000" [sticky]="false" [(value)]="messages"></p-growl>
   <p-confirmDialog
           header="Delete Location"
           icon="fa fa-trash"
@@ -14,15 +14,16 @@
       <div class="card mb-3" style="background-color: #e9ecef">
         <div class="card-header">
           <button type="button" class="btn btn-success btn-sm"
-                  (click)="startCreatePerson()">
+                  (click)="startCreate()">
             <i class="fa fa-plus fa-fw"></i>New Location </button>
         </div>
         <div class="row">
-          <ng4-loading-spinner [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+          <!--<ng4-loading-spinner [loadingText]="'Please wait...'"> </ng4-loading-spinner>-->
           <div class="col-sm-4" *ngFor="let location of locations">
-              <p-card title={{location.name}} [style]="{margin: '5px 5px'}" styleClass="ui-card-shadow">
+              <p-card [style]="{margin: '5px 5px'}" styleClass="ui-card-shadow">
                 <p-header>
-                  <img src="Card" style="padding: 10px;" [src]="location.imageurl ? location.imageurl:'assets/images/photo-back.png'">
+                  <img *ngIf="location.images.length < 1" src="Card" style="padding: 10px; width: 100%; height: 297px" [src]="'assets/images/photo-back.png'">
+                  <p-galleria *ngIf="location.images.length > 0" [images]="location.images" panelWidth="100%" panelHeight = "250"[showCaption]="false"></p-galleria>
                 </p-header>
                 <div>
                     <div class="form-group formlabel">
@@ -52,50 +53,15 @@
               </p-card>
           </div>
         </div>
-
-        <!--<table class="table table-sm">-->
-          <!--<thead>-->
-          <!--<tr>-->
-            <!--<th>ID</th>-->
-            <!--<th>Name</th>-->
-            <!--<th>Address</th>-->
-            <!--<th>ApprovalNeeded</th>-->
-            <!--<th></th>-->
-            <!--<th></th>-->
-          <!--</tr>-->
-          <!--</thead>-->
-          <!--<tbody>-->
-          <!--<tr *ngFor="let location of locations">-->
-            <!--<td>{{location.locationId}}</td>-->
-            <!--<td>{{location.name}}</td>-->
-            <!--<td>{{location.address}}</td>-->
-            <!--<td>-->
-              <!--<span *ngIf="location.isApprovalNeeded == true" class="badge badge-success">Yes</span>-->
-              <!--<span *ngIf="location.isApprovalNeeded == false" class="badge badge-danger">No</span>-->
-            <!--</td>-->
-            <!--<td>-->
-              <!--<a (click)="startEdit(location)">-->
-                <!--<i class="fa fa-pencil"></i>-->
-              <!--</a>-->
-            <!--</td>-->
-            <!--<td>-->
-              <!--<a (click)="onDeleteItem(location)">-->
-                <!--<i class="fa fa-trash-o"></i>-->
-              <!--</a>-->
-            <!--</td>-->
-          <!--</tr>-->
-          <!--</tbody>-->
-        <!--</table>-->
-
-      </div>
+       </div>
     </div>
   </div>
 </div>
 
 <p-dialog
-        [(visible)]="showFormDialog" [responsive]="true" [modal]="true"
-        [draggable]="false" [breakpoint]="500" [width]="500"
-        [blockScroll]="true" >
+        [(visible)]="showFormDialog" [responsive]="true" [modal]="true" [positionTop]="30"
+        [draggable]="false" [breakpoint]="500" [width]="500" [baseZIndex]="1000"
+        [blockScroll]="true" [class.ui-dialog-titlebar]="true">
   <p-header *ngIf="status_flag=='Create'">
     Add New Location
   </p-header>
